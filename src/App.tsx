@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { addNewTrip, IAddNewTrip } from './store';
+import { addNewTrip, deleteTrip, IAddNewTrip } from './store';
 import './App.css';
 
 const initFormData = {
@@ -27,6 +27,10 @@ function App() {
     setFormData(initFormData);
   };
 
+  const onRemoveTrip = (id: string) => {
+    dispatch(deleteTrip(id))
+  };
+
   return (
     <div className="app">
       <div>
@@ -35,7 +39,7 @@ function App() {
         ) : (
           <ul>
             {trips.map(({ id, name, dateStart, dateEnd }: IAddNewTrip) => (
-              <li key={id}><strong>{name}</strong> from {dateStart} to {dateEnd}</li>
+              <li key={id}><strong>{name}</strong> from {dateStart} to {dateEnd} <button type="button" onClick={() => onRemoveTrip(id)}>Remove</button></li>
             ))}
           </ul>
         )}
